@@ -1,9 +1,22 @@
 import { Router } from 'express';
+import { uuid } from 'uuidv4';
 
 const appointmentsRouter = Router();
 
+//Nossa persistencia de dados (Provisória)
+const appointments =[];
+
   appointmentsRouter.post('/', (request, response) => {
-  return response.json({message: 'Hello Word'});
+    const {provider, date } = request.body;
+
+    const appointment = {
+      id: uuid(),
+      provider,
+      date,
+    }
+
+    appointments.push(appointment);
+  return response.json(appointment);
   });
 
 export default appointmentsRouter;
