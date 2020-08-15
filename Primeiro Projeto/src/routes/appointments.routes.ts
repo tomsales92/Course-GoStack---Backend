@@ -7,6 +7,11 @@ const appointmentsRouter = Router();
 //Nossa persistencia de dados (Provisória)
   const appointmentsRepository = new AppointmentsRepository();
 
+  appointmentsRouter.get('/', (request, response) =>{
+    const appointments = appointmentsRepository.All();
+    return response.json(appointments);
+  })
+
   appointmentsRouter.post('/', (request, response) => {
     const {provider, date} = request.body;
 
