@@ -1,36 +1,47 @@
-import { getRepository } from 'typeorm';
+import {getRepository} from 'typeorm';
+import User from '../models/User';
 import path from 'path';
 import fs from 'fs';
+
 import uploadConfig from '../config/upload';
-import User from '../models/User';
-import AppError from '../error/AppError';
+import AppError from '../errors/AppError';
 
 interface Request {
-  user_id: string;
-  avatarFilename: string;
+  user_id:string;
+  avatarFilename:string;
+
 }
 
-class UpdateUserAvatarService {
-  public async execute({ user_id, avatarFilename }: Request): Promise<User> {
-    const userRepository = getRepository(User);
-    const user = await userRepository.findOne(user_id);
+class UpadteUserAvatarService {
+  public async execute({ user_id, avatarFilename }:Request): Promise<User>{
+    const usersRepository = getRepository(User);
+    const user = await usersRepository.findOne(user_id);
 
-    if (!user) {
-      throw new AppError('Only  authenticaded users can change avatar', 401);
+    if(!user){
+      throw new AppError('Only authenticated users can change avatar.',401);
     }
+    if(user.avatar){
+        //Replaces the database file with the new file
+      const userAvatarFilePath = path.join(uploadConfig.directory,user.avatar);
 
-    if (user.avatar) {
-      const userAvatarFilePath = path.join(uploadConfig.directory, user.avatar);
-      const userAvatarFileExist = await fs.promises.stat(userAvatarFilePath);
+        //method that identifies if a file already exists in the database
+      const userAvatarFileExists = await fs.promises.stat(userAvatarFilePath);
 
-      if (userAvatarFileExist) {
+
+      if(userAvatarFileExists){
+        // method to delete the existing file in the database
         await fs.promises.unlink(userAvatarFilePath);
       }
     }
     user.avatar = avatarFilename;
-    await userRepository.save(user);
+
+    await usersRepository.save(user);
+
     return user;
+
   }
+
 }
 
-export default UpdateUserAvatarService;
+
+export default UpadteUserAvatarService;
