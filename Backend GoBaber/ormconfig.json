@@ -1,6 +1,7 @@
 {
   "type": "postgres",
-  "host": "localhost",
+  "host": "192.168.99.100",
+  "host_": "localhost",
   "port": 5432,
   "username": "postgres",
   "password": "docker",
@@ -15,5 +16,5 @@
     "migrationsDir":"./src/database/migrations"
   }
 
-  
+
 }
