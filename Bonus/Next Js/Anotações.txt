@@ -1,0 +1,3 @@
+Criando o APP - yarn create next-app curso-next
+
+Adicionando Typescript no projeto - yarn add typescript @types/react @types/node -D
