@@ -34,6 +34,7 @@ const Dashboard: React.FC = () => {
       '@GithubExplorer:repositories',
       JSON.stringify(repositories),
     );
+    console.log(repositories);
   }, [repositories]);
 
   async function handleAddRepository(
