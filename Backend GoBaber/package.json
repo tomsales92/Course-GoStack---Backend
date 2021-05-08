@@ -23,7 +23,7 @@
     "reflect-metadata": "^0.1.13",
     "tslint-config-airbnb": "^5.11.2",
     "type": "^1.1.0",
-    "typeorm": "^0.2.24",
+    "typeorm": "^0.2.25",
     "uuidv4": "^6.0.7"
   },
   "devDependencies": {
